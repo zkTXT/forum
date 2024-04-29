@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <meta charset="UTF-8">
+
+    <head>
+      <title>Forum</title>
+  </head>
+
+    
+    <style>
+    
+    body {
+        font-family: 'Helvetica, Arial, sans-serif';
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background-image: url(https://static.vecteezy.com/ti/vecteur-libre/p3/18743314-fond-bleu-fonce-avec-des-rayures-banniere-fond-blanc-et-gris-arriere-plan-abstrait-graphique-futuriste-moderne-vectoriel.jpg);
+        background-size: cover;
+        
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+  width: 30%;
+  border-radius: 0.75rem;
+  background-color: rgba(17, 24, 39, 1);
+  padding: 2rem;
+  color: rgba(243, 244, 246, 1);
+}
+
+.title {
+  text-align: center;
+  font-size: 5rem;
+  line-height: 6rem;
+  font-weight: 700;
+}
+
+.form {
+  margin-top: 1.5rem;
+}
+
+.sign {
+  display: block;
+  width: 50%;
+  position: relative;
+  right: -25%;
+  background-color: rgba(167, 139, 250, 1);
+  padding: 0.75rem;
+  text-align: center;
+  color: rgba(17, 24, 39, 1);
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 600;
+}
+
+.social-message {
+  display: flex;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.line {
+  height: 1px;
+  flex: 1 1 0%;
+  background-color: rgba(55, 65, 81, 1);
+}
+
+.social-message .message {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgba(156, 163, 175, 1);
+}
+
+.logo {
+  position: absolute;
+  left: 44%;
+  top: 14%;
+}
+
+.cssbuttons-io-button {
+  background: #1e00ff;
+  color: white;
+  font-family: inherit;
+  padding: 0.35em;
+  padding-left: 1.2em;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 0.9em;
+  border: none;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0 1.6em -0.6em #1100ff;
+  overflow: hidden;
+  position: absolute;
+  top: 54%;
+  right: 45.7%;
+  height: 2.8em;
+  padding-right: 3.3em;
+  cursor: pointer;
+}
+
+.cssbuttons-io-button .icon {
+  background: white;
+  margin-left: 1em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.2em;
+  width: 2.2em;
+  border-radius: 0.7em;
+  box-shadow: 0.1em 0.1em 0.6em 0.2em #0800ff;
+  right: 0.3em;
+  transition: all 0.3s;
+}
+
+.cssbuttons-io-button:hover .icon {
+  width: calc(100% - 0.6em);
+}
+
+.cssbuttons-io-button .icon svg {
+  width: 1.1em;
+  transition: transform 0.3s;
+  color: #1500ff;
+}
+
+.cssbuttons-io-button:hover .icon svg {
+  transform: translateX(0.1em);
+}
+
+.cssbuttons-io-button:active .icon {
+  transform: scale(0.95);
+}
+
+
+</style>
+
+<div class="form-container">
+	<p class="title">Forum</p>
+	<form class="form">
+	</form>
+	<div class="social-message">
+		<div class="line"></div>
+		<p class="message">Forum Pro ©</p>
+		<div class="line"></div>
+	</div>
+</div>
+
+<a href="http://localhost:7070/acc">
+<button class="cssbuttons-io-button">
+  Accedez A Forum
+  <div class="icon">
+    <svg
+      height="24"
+      width="24"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M0 0h24v24H0z" fill="none"></path>
+      <path
+        d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </div>
+</button>
+</a>
+
+
+<div class="logo">
+  <img src="https://cdn.pixabay.com/photo/2016/02/23/15/58/earth-1217983_960_720.png" width="33%" />
+</div>
+
+</html>
+
