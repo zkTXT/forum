@@ -18,6 +18,18 @@ func AddUser(database *sql.DB, username string, email string, password string, c
 	fmt.Println("Added user: " + username + " with email: " + email + " at " + now)
 }
 
+// AddModerator crée un nouveau modérateur en mettant à jour le rôle dans la base de données
+func AddModerator(database *sql.DB, username string) {
+	statement, _ := database.Prepare("UPDATE users SET role = 'moderator' WHERE username = ?")
+	statement.Exec(username)
+}
+
+// AddAdmin crée un nouvel administrateur en mettant à jour le rôle dans la base de données
+func AddAdmin(database *sql.DB, username string) {
+	statement, _ := database.Prepare("UPDATE users SET role = 'admin' WHERE username = ?")
+	statement.Exec(username)
+}
+
 // EmailNotTaken vérifie si un email est déjà utilisé
 func EmailNotTaken(database *sql.DB, email string) bool {
 	rows, _ := database.Query("SELECT email FROM users WHERE email = ?", email)
