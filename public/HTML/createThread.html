@@ -1,3 +1,29 @@
+{{ define "LoggedHeader" }}
+<div class="header">
+    <a href="/" class="logo"><i class=" fa fa-solid fa-user"></i>FORUM</a>
+    <div class="header-right">
+        <a class="active" href="/">Home</a>
+        <a href="/filter?by=liked">Liked Posts</a>
+        <a href="/filter?by=myposts">My Posts</a>
+        <a href="/newpost">New post</a>
+        <a href="/api/logout">Log out</a>
+    </div>
+</div>
+{{ end }}
+
+{{ define "DefaultHeader" }}
+<div class="header">
+    <a href="/" class="logo"><i class=" fa fa-solid fa-user"></i>FORUM</a>
+    <div class="header-right">
+        <a class="active" href="/">Home</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+    </div>
+</div>
+{{ end }}
+
+{{ $icon := .Icon }}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +37,7 @@
 <body>
 <header>
     <div class="header">
-        <a href="/" class="logo"><i class=" fa fa-solid fa-user"></i>HAPPY FEET</a>
+        <a href="/" class="logo"><i class=" fa fa-solid fa-user"></i>FORUM</a>
         <div class="header-right">
             <a class="active" href="/">Home</a>
             <a href="/filter?by=liked">Liked Posts</a>
@@ -68,7 +94,10 @@
 </div>
 </div>
 
-    <input class="button"type="submit" value="create">
+    <div>
+    <input class="button"type="submit" value="">
+    <h3>CREATE</h3>
+    </div>
 
 </div>
 </form>

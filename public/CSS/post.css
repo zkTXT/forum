@@ -6,7 +6,7 @@
 
 }
 body {
-    background: linear-gradient(-45deg, #00c7ff, #00b2ff, #0e9db4, #23d5ab);
+    background: linear-gradient(-45deg, #606060, #606060, #606060, #606060);
 
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
@@ -91,10 +91,7 @@ h1{
 .table-row .status, .table-row .subjects, .table-row .replies, .table-row .last-reply{
     padding: 5px;
     margin: 2px;
-    background: rgba( 255, 255, 255, 0.25 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
+    background: #1500ff7b;
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
@@ -197,13 +194,13 @@ body {
 
 .header {
     overflow: hidden;
-    background-color: #f1f1f1;
+    background-color: #222222;
     padding: 20px 10px;
 }
 
 .header a {
     float: left;
-    color: black;
+    color: rgb(255, 255, 255);
     text-align: center;
     padding: 12px;
     text-decoration: none;
@@ -223,7 +220,7 @@ body {
 }
 
 .header a.active {
-    background-color: dodgerblue;
+    background-color: #1500ff;
     color: white;
 }
 
