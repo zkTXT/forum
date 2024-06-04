@@ -1,6 +1,6 @@
 {{ define "LoggedHeader" }}
 <div class="header">
-    <a href="/" class="logo"><i class=" fa fa-solid fa-user"></i>HAPPY FEET</a>
+    <a href="/" class="logo"><i class=" fa fa-solid fa-user"></i>FORUM</a>
     <div class="header-right">
         <a class="active" href="/">Home</a>
         <a href="/filter?by=liked">Liked Posts</a>
@@ -13,7 +13,7 @@
 
 {{ define "DefaultHeader" }}
 <div class="header">
-    <a href="/" class="logo"><i class=" fa fa-solid fa-user"></i>HAPPY FEET</a>
+    <a href="/" class="logo"><i class=" fa fa-solid fa-user"></i>FORUM</a>
     <div class="header-right">
         <a class="active" href="/">Home</a>
         <a href="/login">Login</a>
@@ -109,7 +109,6 @@
                 {{ .CreatedAt }}
             </div>
         </div>
-        <button onclick="DeleteCommentAPI('{{ .Id }}')">Supprimer ce commentaire</button>
     </div>
     {{ end }}
 </div>

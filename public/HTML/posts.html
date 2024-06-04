@@ -1,23 +1,30 @@
 {{ define "LoggedHeader" }}
 <div class="header">
-    <a href="/" class="logo"><i class=" fa fa-solid fa-user"></i>HAPPY FEET</a>
+    <a href="/" class="logo"><i class=" fa fa-solid fa-user"></i>FORUM</a>
     <div class="header-right">
         <a class="active" href="/">Home</a>
         <a href="/filter?by=liked">Liked Posts</a>
         <a href="/filter?by=myposts">My Posts</a>
         <a href="/newpost">New post</a>
         <a href="/api/logout">Log out</a>
+        <div class="pic">
+            <img src="https://media.discordapp.net/attachments/1149454611745349752/1235535974516264981/earth-1217983_960_720.png?ex=6659a40b&is=6658528b&hm=a83c23eaf87b15a840edbeb2acf9ad15070d33a33bb05da822dc97436592c208&=&format=webp&quality=lossless&width=647&height=647" width="165%" />
+        </div>
     </div>
 </div>
 {{ end }}
 
 {{ define "DefaultHeader" }}
 <div class="header">
-    <a href="/" class="logo"><i class=" fa fa-solid fa-user"></i>HAPPY FEET</a>
+    <a href="/" class="logo"><i class=" fa fa-solid fa-user"></i>FORUM</a>
     <div class="header-right">
         <a class="active" href="/">Home</a>
         <a href="/login">Login</a>
         <a href="/register">Register</a>
+        <div class="pic">
+            <a href="http://localhost:7070/combathard"></a>
+            <img src="https://cdn.pixabay.com/photo/2016/02/23/15/58/earth-1217983_960_720.png" width="165%" />
+        </div>
     </div>
 </div>
 {{ end }}
@@ -69,7 +76,6 @@
                 {{ .CreatedAt }}
                 <br>By <b><a>{{ .Username }}</a></b>
             </div>
-            <button onclick="DeletePostAPI('{{ .Id }}')">Supprimer ce post</button>
         </div>
         {{ end }}
     </div>
