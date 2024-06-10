@@ -175,3 +175,16 @@ func inArray(input string, array []string) bool {
 	}
 	return false
 }
+
+func Admin(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	if !isLoggedIn(r) {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+	t, _ := template.ParseGlob("public/HTML/*.html")
+	t.ExecuteTemplate(w, "admin.html", nil)
+}

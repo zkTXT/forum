@@ -67,6 +67,7 @@ func main() {
 	router.HandleFunc("/", webAPI.Index)
 	router.HandleFunc("/register", webAPI.Register)
 	router.HandleFunc("/login", webAPI.Login)
+	router.HandleFunc("/admin", webAPI.Admin)
 	router.HandleFunc("/post", webAPI.DisplayPost)
 	router.HandleFunc("/filter", webAPI.GetPostsByApi)
 	router.HandleFunc("/newpost", webAPI.NewPost)
