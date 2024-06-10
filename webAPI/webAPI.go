@@ -214,3 +214,16 @@ func ProfilOther(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseGlob("public/HTML/*.html")
 	t.ExecuteTemplate(w, "profilother.html", nil)
 }
+
+func NewCategory(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	if !isLoggedIn(r) {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+	t, _ := template.ParseGlob("public/HTML/*.html")
+	t.ExecuteTemplate(w, "newcategory.html", nil)
+}

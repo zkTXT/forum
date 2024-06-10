@@ -61,7 +61,7 @@ func main() {
 
 	fs := http.FileServer(http.Dir("public"))
 	router := http.NewServeMux()
-	fmt.Println("Starting server on port 8000")
+	fmt.Println("Starting server on port 8080")
 	fmt.Println("http://localhost:8000:")
 
 	router.HandleFunc("/", webAPI.Index)
@@ -73,6 +73,7 @@ func main() {
 	router.HandleFunc("/post", webAPI.DisplayPost)
 	router.HandleFunc("/filter", webAPI.GetPostsByApi)
 	router.HandleFunc("/newpost", webAPI.NewPost)
+	router.HandleFunc("/newcategory", webAPI.NewCategory)
 	router.HandleFunc("/api/register", webAPI.RegisterApi)
 	router.HandleFunc("/api/login", webAPI.LoginApi)
 	router.HandleFunc("/api/logout", webAPI.LogoutAPI)
