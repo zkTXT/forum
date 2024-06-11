@@ -198,21 +198,23 @@ func Profil(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
-	t, _ := template.ParseGlob("public/HTML/*.html")
-	t.ExecuteTemplate(w, "profil.html", nil)
-}
 
-func ProfilOther(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
+	cookie, _ := r.Cookie("SESSION")
+	username := forumGO.GetUser(database, cookie.Value)
+	_, email, _ := forumGO.GetUserInfo(database, cookie.Value)
+
+	payload := struct {
+		IsLoggedIn bool
+		Username   string
+		Email      string
+	}{
+		IsLoggedIn: true,
+		Username:   username,
+		Email:      email,
 	}
-	if !isLoggedIn(r) {
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
-		return
-	}
+
 	t, _ := template.ParseGlob("public/HTML/*.html")
-	t.ExecuteTemplate(w, "profilother.html", nil)
+	t.ExecuteTemplate(w, "profil.html", payload)
 }
 
 func NewCategory(w http.ResponseWriter, r *http.Request) {
@@ -226,4 +228,42 @@ func NewCategory(w http.ResponseWriter, r *http.Request) {
 	}
 	t, _ := template.ParseGlob("public/HTML/*.html")
 	t.ExecuteTemplate(w, "newcategory.html", nil)
+}
+
+func AddCategory(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	if !isLoggedIn(r) {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Parse form data
+	err := r.ParseForm()
+	if err != nil {
+		http.Error(w, "Unable to parse form", http.StatusBadRequest)
+		return
+	}
+
+	name := r.FormValue("name")
+	icon := r.FormValue("icon")
+
+	// Insert new category into the database
+	statement, err := database.Prepare("INSERT INTO categories (name, icon) VALUES (?, ?)")
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	_, err = statement.Exec(name, icon)
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	// Redirect to a success page or back to the form
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
