@@ -158,12 +158,24 @@ func NewPost(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	if !isLoggedIn(r) {
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	categories := forumGO.GetCategories(database)
+	if isLoggedIn(r) {
+		cookie, _ := r.Cookie("SESSION")
+		username := forumGO.GetUser(database, cookie.Value)
+		payload := HomePage{
+			User:       User{IsLoggedIn: true, Username: username},
+			Categories: categories,
+		}
+		t, _ := template.ParseGlob("public/HTML/*.html")
+		t.ExecuteTemplate(w, "createThread.html", payload)
 		return
 	}
+	payload := HomePage{
+		User:       User{IsLoggedIn: false},
+		Categories: categories,
+	}
 	t, _ := template.ParseGlob("public/HTML/*.html")
-	t.ExecuteTemplate(w, "createThread.html", nil)
+	t.ExecuteTemplate(w, "createThread.html", payload)
 }
 
 // inArray checks if a string exists within a slice
