@@ -370,8 +370,6 @@ footer{
     margin-top: 20px;
     padding: 20px;
     background: rgba( 255, 255, 255, 0.25 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 4px );
     -webkit-backdrop-filter: blur( 4px );
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
@@ -482,7 +480,7 @@ img {
     --secondary-color:#1e293b;
     --primary-padding: 8px;
     --pilled-shape-radius: 40px;
-    --color1: #36EB84;
+    --color1: #1500ff;
     --color2: #2BCDB5;
     --primary-gradient: linear-gradient(to right,var(--color2), var(--color1))
 }
@@ -538,7 +536,7 @@ input[type="text"], input[type="password"]{
     width: 300px;
     border-radius: var(--pilled-shape-radius);
     border: none;
-    background: #E7FDF0;
+    background: hsla(0, 0%, 100%, 0.349);
     color: var(--secondary-color);
     outline: none;
     border: 1px solid transparent;
@@ -580,10 +578,10 @@ button[type="submit"]{
 
     border-radius: var(--pilled-shape-radius);
     border: none;
-    background: var(--primary-gradient);
+    background: #1500ff;
     color: var(--white-shade);
     outline: none;
-    margin-left: 40%;
+    margin-left: 0.1%;
 cursor: pointer;
     padding: 5px;
     box-shadow: 2px 2px 5px #353636;
