@@ -70,10 +70,10 @@
             <br>
             <hr>
             <img class="thumbsup" src="https://img.icons8.com/material-outlined/24/undefined/thumb-up.png"
-                 style="margin: 0" onclick="upvote({{ .Post.Id }})"/>
+            style="margin: 0" onclick="upvote({{ .Post.Id }})"/>
             <a style="margin-right: 10px">{{ .Post.UpVotes }}</a>
             <img class="thumbsdown" src="https://img.icons8.com/material-outlined/24/undefined/thumb-up.png"
-                 style="margin: 0" onclick="downvote({{ .Post.Id }})"/>
+            style="margin: 0" onclick="downvote({{ .Post.Id }})"/>
             <a>{{ .Post.DownVotes }}</a>
             {{ if .User.IsLoggedIn }}
             <div class="comment">

@@ -91,9 +91,17 @@ func VoteApi(w http.ResponseWriter, r *http.Request) {
 	cookie, _ := r.Cookie("SESSION")
 	username := forumGO.GetUser(database, cookie.Value)
 	postId := r.FormValue("postId")
-	postIdInt, _ := strconv.Atoi(postId)
+	postIdInt, err := strconv.Atoi(postId)
+	if err != nil {
+		http.Error(w, "Invalid post ID", http.StatusBadRequest)
+		return
+	}
 	vote := r.FormValue("vote")
-	voteInt, _ := strconv.Atoi(vote)
+	voteInt, err := strconv.Atoi(vote)
+	if err != nil {
+		http.Error(w, "Invalid vote value", http.StatusBadRequest)
+		return
+	}
 	now := time.Now().Format("2006-01-02 15:04:05")
 
 	if voteInt == 1 {

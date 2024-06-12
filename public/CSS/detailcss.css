@@ -297,3 +297,17 @@ img.imageprofile{
     }
 
 }
+
+.vote-count {
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.vote-count.voted {
+    color: green; /* Changez cette couleur selon vos préférences */
+}
+
+.thumbsup, .thumbsdown {
+    cursor: pointer;
+}
