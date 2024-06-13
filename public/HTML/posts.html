@@ -68,11 +68,11 @@
             <div class="subjects">
                 <a href="/post?id={{ .Id }}">{{ .Title }}</a>
                 <br>
-                <span>Started by <b><a>{{ .Username }}</a></b> .</span>
+                <span>Started by <b><a href="/userprofile?username={{ .Username }}">{{ .Username }}</a></b> .</span>
             </div>
             <div class="last-reply">
                 {{ .CreatedAt }}
-                <br>By <b><a>{{ .Username }}</a></b>
+                <br>By <b><a href="/userprofile?username={{ .Username }}">{{ .Username }}</a></b>
             </div>
         </div>
         {{ end }}
