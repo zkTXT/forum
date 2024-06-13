@@ -108,8 +108,9 @@ func LoginApi(w http.ResponseWriter, r *http.Request) {
 	}
 	email := r.FormValue("email")
 	password := r.FormValue("password")
+	user := r.FormValue("user")
 
-	username, storedEmail, storedPassword := forumGO.GetUserInfo(database, email)
+	username, storedEmail, storedPassword := forumGO.GetUserInfo(database, email, user)
 	currentTime := time.Now().Format("2006-01-02 15:04:05")
 	if username == "" && storedEmail == "" && storedPassword == "" {
 		fmt.Printf("Login failed (email not found) for %s at %s\n", email, currentTime)
