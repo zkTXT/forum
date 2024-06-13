@@ -80,6 +80,7 @@ func main() {
 	router.HandleFunc("/api/createpost", webAPI.CreatePostApi)
 	router.HandleFunc("/api/comments", webAPI.CommentsApi)
 	router.HandleFunc("/api/vote", webAPI.VoteApi)
+	router.HandleFunc("/userprofile", webAPI.UserProfile)
 
 	router.Handle("/public/", http.StripPrefix("/public/", fs))
 	http.ListenAndServe(":8000", router)
