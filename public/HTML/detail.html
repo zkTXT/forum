@@ -61,7 +61,9 @@
     </div>
     <div class="body">
         <div class="authors">
-            <div class="username"><a>{{ .Post.Username }}</a></div>
+            <div class="username">
+                <a href="/userprofile?username={{ .Post.Username }}">{{ .Post.Username }}</a>
+            </div>
             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
         </div>
         <br>
@@ -101,7 +103,7 @@
     <div class="comments-container">
         <div class="body">
             <div class="authors">
-                <div class="username"><a>{{ .Username }}</a></div>
+                <div class="username"><a href="/userprofile?username={{ .Username }}">{{ .Username }}</a></div>
                 <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
             </div>
             <br>
