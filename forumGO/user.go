@@ -27,3 +27,14 @@ func GetUserInfo(database *sql.DB, cookie string) (string, string, string) {
 	}
 	return user, email, password
 }
+
+// GetUserByUsername récupère les informations d'un utilisateur par son nom d'utilisateur
+func GetUserByUsername(database *sql.DB, username string) (string, string) {
+	var email, password string
+	row := database.QueryRow("SELECT email, password FROM users WHERE username = ?", username)
+	err := row.Scan(&email, &password)
+	if err != nil {
+		return "", ""
+	}
+	return email, password
+}
