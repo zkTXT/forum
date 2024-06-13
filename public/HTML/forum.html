@@ -89,7 +89,7 @@
                 <p>{{ .UpVotes }} Upvotes | {{ .DownVotes }} Downvotes</p>
             </div>
             <div class="subforum-info subforum-column">
-                <b><a>Post</a></b> by <a>{{ .Username }}</a>
+                <b><a>Post</a></b> by <a href="/userprofile?username={{ .Username }}">{{ .Username }}</a>
                 <br>on <small>{{ .CreatedAt }}</small>
             </div>
         </div>
