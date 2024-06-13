@@ -279,3 +279,24 @@ func AddCategory(w http.ResponseWriter, r *http.Request) {
 	// Redirect to a success page or back to the form
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
+
+func UserProfile(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	username := r.URL.Query().Get("username")
+	email, _ := forumGO.GetUserByUsername(database, username)
+
+	payload := struct {
+		Username string
+		Email    string
+	}{
+		Username: username,
+		Email:    email,
+	}
+
+	t, _ := template.ParseGlob("public/HTML/*.html")
+	t.ExecuteTemplate(w, "userprofile.html", payload)
+}
