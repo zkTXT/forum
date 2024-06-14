@@ -213,7 +213,7 @@ func Profil(w http.ResponseWriter, r *http.Request) {
 
 	cookie, _ := r.Cookie("SESSION")
 	username := forumGO.GetUser(database, cookie.Value)
-	_, email, _ := forumGO.GetUserInfo(database, cookie.Value, cookie.Name)
+	_, email, _ := forumGO.GetUserInfo(database, cookie.Value)
 
 	payload := struct {
 		IsLoggedIn bool
