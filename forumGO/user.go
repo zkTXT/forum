@@ -17,10 +17,10 @@ func GetUser(database *sql.DB, cookie string) string {
 	return username
 }
 
-// GetUserInfo retourne le nom d'utilisateur, l'email et le mot de passe hashé associés à un cookie donné
-func GetUserInfo(database *sql.DB, cookie string, submittedEmail string) (string, string, string) {
+// GetUserInfo retourne le nom d'utilisateur, l'email et le mot de passe hashé associés à un email donné
+func GetUserInfo(database *sql.DB, submittedEmail string) (string, string, string) {
 	var user, email, password string
-	rows, _ := database.Query("SELECT username, email, password FROM users WHERE cookie = ?", cookie)
+	rows, _ := database.Query("SELECT username, email, password FROM users WHERE email = ?", submittedEmail)
 	defer rows.Close()
 	for rows.Next() {
 		rows.Scan(&user, &email, &password)
