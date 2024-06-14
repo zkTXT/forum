@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"html/template"
 	"net/http"
+	"sort"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -45,9 +46,19 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
+
+	// Fetch categories and posts from the database
 	categories := forumGO.GetCategories(database)
 	icons := forumGO.GetCategoriesIcons(database)
 	postsByCategories := forumGO.GetPostsByCategories(database)
+
+	// Check if alphabetical sorting is requested
+	alphabetical := r.URL.Query().Get("alphabetical") == "true"
+	if alphabetical {
+		sort.Strings(categories)
+	}
+
+	// Check if user is logged in
 	if isLoggedIn(r) {
 		cookie, _ := r.Cookie("SESSION")
 		username := forumGO.GetUser(database, cookie.Value)
@@ -61,6 +72,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		t.ExecuteTemplate(w, "forum.html", payload)
 		return
 	}
+
 	payload := HomePage{
 		User:              User{IsLoggedIn: false},
 		Categories:        categories,
