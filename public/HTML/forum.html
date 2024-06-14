@@ -90,6 +90,7 @@
         </div>
         {{ range $indexPost, $value := index $postsByCategories $index }}
         {{ if lt $indexPost 5}}
+        <div href="post.html" class="subforum-row">
             <div class="subforum-icon subforum-column center">
                 <i class="fa {{ index $icons $index }}"></i>
             </div>
@@ -98,7 +99,7 @@
                 <p>{{ .UpVotes }} Upvotes | {{ .DownVotes }} Downvotes</p>
             </div>
             <div class="subforum-info subforum-column">
-                <b><a>Post</a></b> by <a href="/userprofile?username={{ .Username }}">{{ .Username }}</a>
+                <b><a>Post</a></b> by <a>{{ .Username }}</a>
                 <br>on <small>{{ .CreatedAt }}</small>
             </div>
         </div>
