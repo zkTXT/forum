@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #333; /* Gris foncé */
     margin: 0;
     padding: 0;
 }
@@ -37,7 +37,7 @@ input[type="number"] {
 
 button {
     padding: 10px;
-    background-color: #d9534f;
+    background-color: #337ab7; /* Bleu */
     color: white;
     border: none;
     border-radius: 5px;
@@ -45,5 +45,5 @@ button {
 }
 
 button:hover {
-    background-color: #c9302c;
+    background-color: #286090; /* Bleu foncé */
 }
