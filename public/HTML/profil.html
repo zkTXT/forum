@@ -46,12 +46,22 @@
 
     <div class="container">
         <section>
-            <h2>Your Informations</h2>
-            <form id="addUserForm">
+            <h2>Your Informations :</h2>
+            <form id="updateUserForm" action="/api/updateUser" method="post">
                 <label for="username">Username: {{ .Username }}</label>
-                <label for="email">Email: {{ .Email }}</label>
-                <label for="password">Password</label>
+                <input type="text" id="newUsername" name="newUsername" placeholder="New Username">
+                <!-- <label for="email">Email: {{ .Email }}</label> -->
                 <button type="submit">Modify</button>
+            </form>
+            <h2>Change Password :</h2>
+            <form id="updatePasswordForm" action="/api/updatePassword" method="post">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword" name="currentPassword" placeholder="Current Password" required>
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" name="newPassword" placeholder="New Password" required>
+                <label for="confirmPassword">Confirm New Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm New Password" required>
+                <button type="submit">Change Password</button>
             </form>
         </section>
     </div>
@@ -68,12 +78,16 @@
     </footer>
 
     <div class="pic">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png" width="10%" />
-        <h3>Your Profile Picture</h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png" alt="Profile Picture" class="profile-img">
+        <div class="pic-text">
+            <h3>Your Profile Picture</h3>
+        </div>
     </div>
+    
 
     <div class="form1"></div>
-    <div class="form2">
+    <div class="form2"></div>
+    <div class="form3">
     </div>
 </body>
 </html>
