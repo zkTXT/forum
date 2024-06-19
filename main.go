@@ -81,6 +81,8 @@ func main() {
 	router.HandleFunc("/api/comments", webAPI.CommentsApi)
 	router.HandleFunc("/api/vote", webAPI.VoteApi)
 	router.HandleFunc("/userprofile", webAPI.UserProfile)
+	router.HandleFunc("/api/updateUser", webAPI.UpdateUsername)
+	router.HandleFunc("/api/updatePassword", webAPI.UpdatePassword)
 
 	router.Handle("/public/", http.StripPrefix("/public/", fs))
 	http.ListenAndServe(":8000", router)
