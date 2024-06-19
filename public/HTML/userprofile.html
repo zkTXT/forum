@@ -1,14 +1,88 @@
+{{ define "LoggedHeader" }}
+<div class="header">
+    <a href="/" class="logo"><i class="fa fa-solid fa-user"></i>FORUM</a>
+    <div class="header-right">
+        <a class="active" href="/">Home</a>
+        <a href="/filter?by=liked">Liked Posts</a>
+        <a href="/filter?by=myposts">My Posts</a>
+        <a href="/newpost">New post</a>
+        <a href="/newcategory">New category</a>
+        <a href="/api/logout">Log out</a>
+        <a href="/profil">
+            <img src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png" alt="Profile" style="width: 20px; height: 20px; vertical-align: middle; border-radius: 50%;">
+        </a>
+    </div>
+</div>
+{{ end }}
+
+{{ define "DefaultHeader" }}
+<div class="header">
+    <a href="/" class="logo"><i class="fa fa-solid fa-user"></i>FORUM</a>
+    <div class="header-right">
+        <a class="active" href="/">Home</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+    </div>
+</div>
+{{ end }}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="public/CSS/style.css">
+    <link rel="stylesheet" href="public/CSS/userprofile.css">
 </head>
+
 <body>
-    <h1>User Profile</h1>
+
+    <header>
+        {{ if .IsLoggedIn }}
+        {{ template "LoggedHeader" . }}
+        {{ else }}
+        {{ template "DefaultHeader" . }}
+        {{ end }}
+    </header>
+
+    <div class="info">
+    <h1>User Informations</h1>
+    <h4>Contact :</h4>
     <p>Username: {{ .Username }}</p>
     <p>Email: {{ .Email }}</p>
+    </div>
+
+    <div class="latest-post">
+        <h2>Latest Post :</h2>
+        {{ if .LatestPost.Title }}
+        <h5>{{ .LatestPost.Title }}</h5>
+        <h6>{{ .LatestPost.Content }}</h6>
+        <p>Posted on: {{ .LatestPost.CreatedAt }}</p>
+        {{ else }}
+        <p>No posts yet.</p>
+        {{ end }}
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-row">
+                <div class="footer-column">
+                    <h1>FORUM &copy</h1>
+                    <p>Thanks for using this forum and we hope you enjoy it.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="form1">
+        <div class="pp">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png" width="80%" />
+            <h3>{{ .Username }}'s Profile Picture</h3>
+        </div>
+    </div>
+    <div class="form2"></div>
+    <div class="form3"></div>
+    <div class="form4"></div>
+    <div class="form5"></div>
 </body>
 </html>
