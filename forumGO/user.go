@@ -2,6 +2,7 @@ package forumGO
 
 import (
 	"database/sql"
+	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -37,4 +38,18 @@ func GetUserByUsername(database *sql.DB, username string) (string, string) {
 		return "", ""
 	}
 	return email, password
+}
+
+// GetLatestPostByUser retrieves the most recent post by the given username
+func GetLatestPostByUser(database *sql.DB, username string) (Post, error) {
+	var post Post
+	query := `SELECT id, username, title, categories, content, created_at, upvotes, downvotes FROM posts WHERE username = ? ORDER BY created_at DESC LIMIT 1`
+	row := database.QueryRow(query, username)
+	var categories string
+	err := row.Scan(&post.Id, &post.Username, &post.Title, &categories, &post.Content, &post.CreatedAt, &post.UpVotes, &post.DownVotes)
+	if err != nil {
+		return post, err
+	}
+	post.Categories = strings.Split(categories, ",")
+	return post, nil
 }
