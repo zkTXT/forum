@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"net/http"
 	"sort"
+	"strconv"
 	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -40,6 +41,14 @@ var database *sql.DB
 
 func SetDatabase(db *sql.DB) {
 	database = db
+}
+
+func init() {
+	var err error
+	database, err = sql.Open("sqlite3", "./database.db")
+	if err != nil {
+		panic(err)
+	}
 }
 
 // Index handles the home page display
@@ -213,6 +222,58 @@ func Admin(w http.ResponseWriter, r *http.Request) {
 	}
 	t, _ := template.ParseGlob("public/HTML/*.html")
 	t.ExecuteTemplate(w, "admin.html", nil)
+}
+
+func DeletePost(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	postID, err := strconv.Atoi(r.FormValue("post_id"))
+	if err != nil {
+		http.Error(w, "Invalid post ID", http.StatusBadRequest)
+		return
+	}
+
+	statement, err := database.Prepare("DELETE FROM posts WHERE id = ?")
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+	_, err = statement.Exec(postID)
+	if err != nil {
+		http.Error(w, "Failed to delete post", http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, "/admin", http.StatusSeeOther)
+}
+
+func DeleteComment(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	commentID, err := strconv.Atoi(r.FormValue("comment_id"))
+	if err != nil {
+		http.Error(w, "Invalid comment ID", http.StatusBadRequest)
+		return
+	}
+
+	statement, err := database.Prepare("DELETE FROM comments WHERE id = ?")
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+	_, err = statement.Exec(commentID)
+	if err != nil {
+		http.Error(w, "Failed to delete comment", http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, "/admin", http.StatusSeeOther)
 }
 
 func Profil(w http.ResponseWriter, r *http.Request) {

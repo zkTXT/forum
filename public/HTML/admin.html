@@ -3,66 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administration</title>
-    <link rel="stylesheet" href="public/CSS/admin.css">
+    <link rel="stylesheet" href="/public/CSS/admin.css">
+    <title>Admin Panel</title>
 </head>
-
 <body>
     <div class="container">
-        <h1>Page d'administration</h1>
-
-        <section>
-            <h2>Ajouter un Utilisateur</h2>
-            <form id="addUserForm">
-                <label for="username">Nom d'utilisateur:</label>
-                <input type="text" id="username" name="username" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="password">Mot de passe:</label>
-                <input type="password" id="password" name="password" required>
-                <button type="submit">Ajouter</button>
-            </form>
-        </section>
-
-        <section>
-            <h2>Attribuer un Rôle</h2>
-            <form id="assignRoleForm">
-                <label for="roleUsername">Nom d'utilisateur:</label>
-                <input type="text" id="roleUsername" name="username" required>
-                <label for="role">Rôle:</label>
-                <select id="role" name="role" required>
-                    <option value="user">Utilisateur</option>
-                    <option value="moderator">Modérateur</option>
-                    <option value="admin">Administrateur</option>
-                </select>
-                <button type="submit">Attribuer Rôle</button>
-            </form>
-        </section>
-
-        <section>
-            <h2>Supprimer un Commentaire</h2>
-            <form id="deleteCommentForm">
-                <label for="commentId">ID du Commentaire:</label>
-                <input type="text" id="commentId" name="id" required>
-                <button type="submit">Supprimer</button>
-            </form>
-        </section>
-
-        <section>
-            <h2>Supprimer une Publication</h2>
-            <form id="deletePostForm">
-                <label for="postId">ID de la Publication:</label>
-                <input type="text" id="postId" name="id" required>
-                <button type="submit">Supprimer</button>
-            </form>
-        </section>
+        <h1>Admin Panel</h1>
+        <form action="/delete-post" method="POST" class="delete-form">
+            <label for="post-id">Post ID:</label>
+            <input type="number" id="post-id" name="post_id" required>
+            <button type="submit">Delete Post</button>
+        </form>
+        <form action="/delete-comment" method="POST" class="delete-form">
+            <label for="comment-id">Comment ID:</label>
+            <input type="number" id="comment-id" name="comment_id" required>
+            <button type="submit">Delete Comment</button>
+        </form>
     </div>
-
-    <div class="form1"></div>
-    <div class="form2"></div>
-    <div class="form3"></div>
-    <div class="form4"></div>
-
-    <script src="public/JS/scripts.js"></script>
 </body>
 </html>
