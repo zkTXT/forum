@@ -53,3 +53,31 @@ func GetLatestPostByUser(database *sql.DB, username string) (Post, error) {
 	post.Categories = strings.Split(categories, ",")
 	return post, nil
 }
+
+// UpdateUsername updates the username of a user in the database
+func UpdateUsername(database *sql.DB, oldUsername, newUsername string) error {
+	statement, err := database.Prepare("UPDATE users SET username = ? WHERE username = ?")
+	if err != nil {
+		return err
+	}
+	_, err = statement.Exec(newUsername, oldUsername)
+	return err
+}
+
+// GetPasswordByUsername retourne le mot de passe hashé associé à un nom d'utilisateur donné
+func GetPasswordByUsername(database *sql.DB, username string) string {
+	var password string
+	row := database.QueryRow("SELECT password FROM users WHERE username = ?", username)
+	row.Scan(&password)
+	return password
+}
+
+// UpdatePassword met à jour le mot de passe de l'utilisateur dans la base de données
+func UpdatePassword(database *sql.DB, username string, newPassword string) error {
+	statement, err := database.Prepare("UPDATE users SET password = ? WHERE username = ?")
+	if err != nil {
+		return err
+	}
+	_, err = statement.Exec(newPassword, username)
+	return err
+}
