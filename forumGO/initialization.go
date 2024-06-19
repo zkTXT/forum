@@ -39,7 +39,7 @@ func CreateCategoriesTable(database *sql.DB) {
 // CreateCategories crée les catégories par défaut
 func CreateCategories(database *sql.DB) {
 	statement, _ := database.Prepare("INSERT INTO categories (name) SELECT ? WHERE NOT EXISTS (SELECT 1 FROM categories WHERE name = ?)")
-	categories := []string{"General", "Technology", "Science", "Sports", "Gaming", "Music", "Books", "Movies", "TV", "Food", "Travel", "Photography", "Art", "Writing", "Programming", "Other"}
+	categories := []string{"Healthcare and Medicine", "Technology and IT", "Finance and Accounting", "Science and Research", "Gaming", "Music", "Education and Teaching", "Movies", "TV", "Gastronomy", "Pilot and Flight Operations", "Photography", "Art", "Writing", "Programming", "Other"}
 	for _, category := range categories {
 		statement.Exec(category, category)
 	}
@@ -49,22 +49,22 @@ func CreateCategories(database *sql.DB) {
 func CreateCategoriesIcons(database *sql.DB) {
 	statement, _ := database.Prepare("UPDATE categories SET icon = ? WHERE name = ?")
 	icons := map[string]string{
-		"General":     "fa-globe",
-		"Technology":  "fa-laptop",
-		"Science":     "fa-flask",
-		"Sports":      "fa-futbol-o",
-		"Gaming":      "fa-gamepad",
-		"Music":       "fa-music",
-		"Books":       "fa-book",
-		"Movies":      "fa-film",
-		"TV":          "fa-tv",
-		"Food":        "fa-cutlery",
-		"Travel":      "fa-plane",
-		"Photography": "fa-camera",
-		"Art":         "fa-paint-brush",
-		"Writing":     "fa-pencil",
-		"Programming": "fa-code",
-		"Other":       "fa-question",
+		"Healthcare and Medicinel":    "fa-globe",
+		"Technology and IT":           "fa-laptop",
+		"Finance and Accounting":      "fa-laptop",
+		"Science and Research":        "fa-flask",
+		"Gaming":                      "fa-gamepad",
+		"Music":                       "fa-music",
+		"Education and Teaching":      "fa-book",
+		"Movies":                      "fa-film",
+		"TV":                          "fa-tv",
+		"Gastronomy":                  "fa-cutlery",
+		"Pilot and Flight Operations": "fa-plane",
+		"Photography":                 "fa-camera",
+		"Art":                         "fa-paint-brush",
+		"Writing":                     "fa-pencil",
+		"Programming":                 "fa-code",
+		"Other":                       "fa-question",
 	}
 	for name, icon := range icons {
 		statement.Exec(icon, name)
