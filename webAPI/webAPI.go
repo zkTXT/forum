@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -340,4 +341,96 @@ func UserProfile(w http.ResponseWriter, r *http.Request) {
 
 	t, _ := template.ParseGlob("public/HTML/*.html")
 	t.ExecuteTemplate(w, "userprofile.html", payload)
+}
+
+// UpdateUsername handles the username update request
+func UpdateUsername(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	if !isLoggedIn(r) {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	cookie, err := r.Cookie("SESSION")
+	if err != nil {
+		http.Error(w, "Could not get session cookie", http.StatusInternalServerError)
+		return
+	}
+
+	oldUsername := forumGO.GetUser(database, cookie.Value)
+	newUsername := r.FormValue("newUsername")
+
+	// Check if the new username is taken
+	if !forumGO.UsernameNotTaken(database, newUsername) {
+		http.Error(w, "Username already taken", http.StatusBadRequest)
+		return
+	}
+
+	// Update the username in the database
+	err = forumGO.UpdateUsername(database, oldUsername, newUsername)
+	if err != nil {
+		http.Error(w, "Could not update username", http.StatusInternalServerError)
+		return
+	}
+
+	// Redirect to profile page
+	http.Redirect(w, r, "/profil", http.StatusSeeOther)
+}
+
+// UpdatePassword handles the password update request
+func UpdatePassword(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	if !isLoggedIn(r) {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	cookie, err := r.Cookie("SESSION")
+	if err != nil {
+		http.Error(w, "Could not get session cookie", http.StatusInternalServerError)
+		return
+	}
+
+	username := forumGO.GetUser(database, cookie.Value)
+	currentPassword := r.FormValue("currentPassword")
+	newPassword := r.FormValue("newPassword")
+	confirmPassword := r.FormValue("confirmPassword")
+
+	if newPassword != confirmPassword {
+		http.Error(w, "New passwords do not match", http.StatusBadRequest)
+		return
+	}
+
+	// Verify current password
+	storedPassword := forumGO.GetPasswordByUsername(database, username)
+	err = bcrypt.CompareHashAndPassword([]byte(storedPassword), []byte(currentPassword))
+	if err != nil {
+		http.Error(w, "Current password is incorrect", http.StatusBadRequest)
+		return
+	}
+
+	// Hash the new password
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost)
+	if err != nil {
+		http.Error(w, "Could not hash new password", http.StatusInternalServerError)
+		return
+	}
+
+	// Update the password in the database
+	err = forumGO.UpdatePassword(database, username, string(hashedPassword))
+	if err != nil {
+		http.Error(w, "Could not update password", http.StatusInternalServerError)
+		return
+	}
+
+	// Redirect to profile page
+	http.Redirect(w, r, "/profil", http.StatusSeeOther)
 }
