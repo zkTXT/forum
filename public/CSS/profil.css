@@ -191,6 +191,7 @@ footer{
     width: 35%;
     height: 17%;
     border-radius: 4px;
+    z-index: -1;
 }
 
 .form3 {
@@ -205,4 +206,5 @@ footer{
     width: 35%;
     height: 43%;
     border-radius: 4px;
+    z-index: -1;
 }
