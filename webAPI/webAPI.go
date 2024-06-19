@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"net/http"
 	"sort"
+	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -292,21 +293,49 @@ func AddCategory(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
+// GetLatestPostByUser retrieves the most recent post by the given username
+func GetLatestPostByUser(database *sql.DB, username string) (forumGO.Post, error) {
+	var post forumGO.Post
+	query := `SELECT id, username, title, categories, content, created_at, upvotes, downvotes FROM posts WHERE username = ? ORDER BY created_at DESC LIMIT 1`
+	row := database.QueryRow(query, username)
+	var categories string
+	err := row.Scan(&post.Id, &post.Username, &post.Title, &categories, &post.Content, &post.CreatedAt, &post.UpVotes, &post.DownVotes)
+	if err != nil {
+		return post, err
+	}
+	post.Categories = strings.Split(categories, ",")
+	return post, nil
+}
+
 func UserProfile(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
+	if !isLoggedIn(r) {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
 	username := r.URL.Query().Get("username")
 	email, _ := forumGO.GetUserByUsername(database, username)
 
+	latestPost, err := forumGO.GetLatestPostByUser(database, username)
+	if err != nil {
+		// Handle error if needed
+	}
+
 	payload := struct {
-		Username string
-		Email    string
+		IsLoggedIn bool
+		Username   string
+		Email      string
+		LatestPost forumGO.Post
 	}{
-		Username: username,
-		Email:    email,
+		IsLoggedIn: true,
+		Username:   username,
+		Email:      email,
+		LatestPost: latestPost,
 	}
 
 	t, _ := template.ParseGlob("public/HTML/*.html")
