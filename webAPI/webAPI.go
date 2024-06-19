@@ -276,6 +276,38 @@ func DeleteComment(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/admin", http.StatusSeeOther)
 }
 
+func UpdateRole(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	userID, err := strconv.Atoi(r.FormValue("user_id"))
+	if err != nil {
+		http.Error(w, "Invalid user ID", http.StatusBadRequest)
+		return
+	}
+
+	role := r.FormValue("role")
+	if role != "user" && role != "moderator" && role != "admin" {
+		http.Error(w, "Invalid role", http.StatusBadRequest)
+		return
+	}
+
+	statement, err := database.Prepare("UPDATE users SET role = ? WHERE id = ?")
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+	_, err = statement.Exec(role, userID)
+	if err != nil {
+		http.Error(w, "Failed to update role", http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, "/admin", http.StatusSeeOther)
+}
+
 func Profil(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -494,4 +526,13 @@ func UpdatePassword(w http.ResponseWriter, r *http.Request) {
 
 	// Redirect to profile page
 	http.Redirect(w, r, "/profil", http.StatusSeeOther)
+}
+
+func GetUserRole(username string) (string, error) {
+	var role string
+	err := database.QueryRow("SELECT role FROM users WHERE username = ?", username).Scan(&role)
+	if err != nil {
+		return "", err
+	}
+	return role, nil
 }

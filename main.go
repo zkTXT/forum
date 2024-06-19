@@ -68,6 +68,7 @@ func main() {
 	router.HandleFunc("/register", webAPI.Register)
 	router.HandleFunc("/login", webAPI.Login)
 	router.HandleFunc("/admin", webAPI.Admin)
+	router.HandleFunc("/update-role", webAPI.UpdateRole)
 	router.HandleFunc("/delete-post", webAPI.DeletePost)
 	router.HandleFunc("/delete-comment", webAPI.DeleteComment)
 	router.HandleFunc("/profil", webAPI.Profil)

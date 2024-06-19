@@ -19,6 +19,17 @@
             <input type="number" id="comment-id" name="comment_id" required>
             <button type="submit">Delete Comment</button>
         </form>
+        <form action="/update-role" method="POST" class="update-role-form">
+            <label for="user-id">User ID:</label>
+            <input type="number" id="user-id" name="user_id" required>
+            <label for="role">Role:</label>
+            <select id="role" name="role" required>
+                <option value="user">User</option>
+                <option value="moderator">Moderator</option>
+                <option value="admin">Admin</option>
+            </select>
+            <button type="submit">Update Role</button>
+        </form>
     </div>
 </body>
 </html>
